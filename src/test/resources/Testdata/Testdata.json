@@ -1,0 +1,19 @@
+{
+  "firstname": "user01",
+  "lastname": "xyz",
+  "phone": 190876907,
+  "companies":[
+    {
+      "name": "cts",
+      "location": "chennai"
+    },
+    {
+      "name": "TCS",
+      "location": "hyderabad"
+    },
+    {
+      "name": "wipro",
+      "location": "banglore"
+    }
+  ]
+}
