@@ -1,5 +1,6 @@
 package com.genericmethods;
 
+import com.excelreader.ExcelUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -7,17 +8,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WebUtils {
-    WebDriver driver;
-    Properties properties;
+public class WebUtils extends ExcelUtil {
+    public static WebDriver driver;
+    public static Properties properties;
     Logger logger=Logger.getLogger(this.getClass().getName());
     public  WebDriver launchBrowser(){
         String env=getProperty("ENV_EXECUTE");
@@ -37,6 +40,7 @@ public class WebUtils {
         }
         driver.get(url);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
         logger.log(Level.INFO,"Browser launched successfully");
         return driver;
     }
@@ -98,6 +102,12 @@ return status;
       element.clear();
       element.sendKeys(data);
       element.sendKeys(Keys.TAB);
+    }
+
+    public void clickElement(String webElementName, String pageName,WebElement element) {
+        logger.log(Level.INFO,"Click the element :"+webElementName+" on the page :"+pageName);
+        Actions actions=new Actions(driver);
+        actions.moveToElement(element).click(element).build().perform();
     }
 
     public void selectDropDownByVisibleText(String webElementName, String pageName,WebElement element, String option){

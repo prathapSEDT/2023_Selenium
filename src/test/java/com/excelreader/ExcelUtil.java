@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 
 public class ExcelUtil {
     Logger logger=Logger.getLogger(this.getClass().getName());
-    private  XSSFWorkbook workbook;
+    private  static XSSFWorkbook workbook;
+    public static String testCaseName;
 
     public void loadExcelFile(){
         try{
@@ -63,7 +64,7 @@ public class ExcelUtil {
     }
 
 
-    public String getData(String sheetName,String testCaseName,String colName) {
+    public String getData(String sheetName,String colName) {
         int row = searchRow(sheetName, testCaseName);
         int col = searchColumn(sheetName, colName);
         String data = "";
